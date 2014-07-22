@@ -175,6 +175,8 @@ function setItem(location, item) {
 		span.html("");
 	} else {
 		span.html(escHtml(translate(item)));
+		span.attr('style',"text-shadow: 0px 0px 10px #ff0000");
+		span.attr('onmouseout',"this.removeAttribute('style'); this.removeAttribute('onmouseout');");
 	}
 }
 function removeItem(location, item) {
@@ -202,7 +204,7 @@ function addObject(item) {
 	var id = objects.indexOf(item);
 	
 	if (id == 0) {
-		jQuery("#objects ul").append("\n<li id=\"object-" + escAttr(item) + "\" onclick=\"javascript:targetPicked('" + escJs(item) + "');\" style=\"text-shadow: 0px 0px 10px #ff0000\" onmouseout=\"this.removeAttribute('style'); this.removeAttribute('onmouseout');\">" + escHtml(translate(item)) + "</li>");
+		jQuery("#objects ul").prepend("\n<li id=\"object-" + escAttr(item) + "\" onclick=\"javascript:targetPicked('" + escJs(item) + "');\" style=\"text-shadow: 0px 0px 10px #ff0000\" onmouseout=\"this.removeAttribute('style'); this.removeAttribute('onmouseout');\">" + escHtml(translate(item)) + "</li>");
 	} else {
 		jQuery("#object-" + escAttr(objects[id-1])).after("\n<li id=\"object-" + escAttr(item) + "\" onclick=\"javascript:targetPicked('" + escJs(item) + "');\" style=\"text-shadow: 0px 0px 10px #ff0000\" onmouseout=\"this.removeAttribute('style'); this.removeAttribute('onmouseout');\">" + escHtml(translate(item)) + "</li>");
 	}
@@ -717,6 +719,9 @@ function setupLocations() {
 function setupInventory() {
 	for (var loc in starting_inventory) {
 		setItem(loc, starting_inventory[loc]);
+		var span = jQuery("#inventory ul li#location-" + escAttr(loc) + " .item");
+		span.removeAttr('style');
+		span.removeAttr('onmouseover');
 	}
 }
 
