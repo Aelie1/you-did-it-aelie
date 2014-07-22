@@ -511,6 +511,12 @@ function proceedResult(result) {
 		setStory(current_state);
 		progressed = true;
 	}
+	if ('map' in result) {
+		current_state['map'] = current_state['map-alts'][result['map']]['map'];
+		current_state['map-items'] = current_state['map-alts'][result['map']]['map-items'];
+		setMap(current_state);
+		progressed = true;
+	}
 	if ('game_over' in result) {
 		badAction();
 		badAction();
